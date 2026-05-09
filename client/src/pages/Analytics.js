@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/Analytics.css';
 
 function Analytics({ user }) {
@@ -9,11 +9,7 @@ function Analytics({ user }) {
 
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    fetchInsights();
-  }, []);
-
-  const fetchInsights = async () => {
+  const fetchInsights = useCallback(async () => {
     try {
       const response = await fetch('https://versionflow.onrender.com/api/analytics/user-insights', {
         headers: { Authorization: `Bearer ${token}` },
@@ -27,7 +23,11 @@ function Analytics({ user }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchInsights();
+  }, [fetchInsights]);
 
   const fetchProjectAnalytics = async (pId) => {
     try {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/ProjectDetail.css';
 
@@ -16,11 +16,7 @@ function ProjectDetail({ user }) {
 
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    fetchProjectDetails();
-  }, [id, token]);
-
-  const fetchProjectDetails = async () => {
+  const fetchProjectDetails = useCallback(async () => {
     try {
       const response = await fetch(`https://versionflow.onrender.com/api/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -42,7 +38,11 @@ function ProjectDetail({ user }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, token]);
+
+  useEffect(() => {
+    fetchProjectDetails();
+  }, [fetchProjectDetails]);
 
   const handleUploadResource = async (e) => {
     e.preventDefault();

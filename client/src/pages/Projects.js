@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Projects.css';
 
@@ -15,11 +15,7 @@ function Projects({ user }) {
 
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
       const response = await fetch('https://versionflow.onrender.com/api/projects', {
         headers: { Authorization: `Bearer ${token}` },
@@ -31,7 +27,11 @@ function Projects({ user }) {
     } catch (err) {
       console.error('Error fetching projects', err);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
 
   const handleCreateProject = async (e) => {
     e.preventDefault();
