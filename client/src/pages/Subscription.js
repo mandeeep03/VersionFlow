@@ -56,7 +56,7 @@ function Subscription({ user, setUser, token }) {
   const handleUpgrade = async (tier) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/auth/upgrade', {
+      const response = await fetch('https://versionflow.onrender.com/api/auth/upgrade', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ function ProjectDetail({ user }) {
 
   const fetchProjectDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/projects/${id}`, {
+      const response = await fetch(`https://versionflow.onrender.com/api/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -30,7 +30,7 @@ function ProjectDetail({ user }) {
         setProject(data.project);
       }
 
-      const resourceResponse = await fetch(`http://localhost:5000/api/resources/${id}/resources`, {
+      const resourceResponse = await fetch(`https://versionflow.onrender.com/api/resources/${id}/resources`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const resourceData = await resourceResponse.json();
@@ -47,7 +47,7 @@ function ProjectDetail({ user }) {
   const handleUploadResource = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/resources/${id}/upload`, {
+      const response = await fetch(`https://versionflow.onrender.com/api/resources/${id}/upload`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

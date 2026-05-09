@@ -15,7 +15,7 @@ function Analytics({ user }) {
 
   const fetchInsights = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/analytics/user-insights', {
+      const response = await fetch('https://versionflow.onrender.com/api/analytics/user-insights', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -31,7 +31,7 @@ function Analytics({ user }) {
 
   const fetchProjectAnalytics = async (pId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/analytics/project-analytics/${pId}`, {
+      const response = await fetch(`https://versionflow.onrender.com/api/analytics/project-analytics/${pId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
